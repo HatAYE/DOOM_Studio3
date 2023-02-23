@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {                    
     [SerializeField] float maxShootingDistance;
+    
     private void Update()
     {
         RaycastHit hit;

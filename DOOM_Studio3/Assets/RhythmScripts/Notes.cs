@@ -12,12 +12,12 @@ public class Notes : MonoBehaviour
     private ShootingHandler shootingHandler;
 
     [SerializeField]
-    bool ableToShoot;
+    bool onBeat;
 
     private void Start()
     {
-        ableToShoot = false;
-        shootingHandler = gameObject.GetComponent<ShootingHandler>();
+        onBeat = false;
+        shootingHandler = gameObject.GetComponent<ShootingHandler>(); 
         note = this.gameObject;
         reticletarget = GameObject.FindGameObjectWithTag("Reticle");
         postDestinationPos = new Vector3(target.x, target.y + 4f, target.z);
@@ -30,24 +30,23 @@ public class Notes : MonoBehaviour
         Shooting();
     }
 
-
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.CompareTag("Reticle"))
         {
-            ableToShoot = true;
+            onBeat = true;
             Destroy(this.gameObject, 3f);
             
         }
         else
         {
-            ableToShoot = false;
+            onBeat = false;
         }
     }
 
     void Shooting()
     {
-        if (ableToShoot == true && Input.GetMouseButtonDown(0))
+        if (onBeat == true && Input.GetMouseButtonDown(0))
         {
             Destroy(this.gameObject);
         }

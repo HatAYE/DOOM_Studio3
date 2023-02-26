@@ -7,10 +7,13 @@ public class SpectrumData : MonoBehaviour
     public float spectrumvalue;
     public int spectrumSensitivity;
     public AudioListener beatMap;
+    public bool enableAllActions = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,11 +27,19 @@ public class SpectrumData : MonoBehaviour
         {
             float tmp = spectrum[i] * spectrumSensitivity; //just to make values outputted easier to read
 
-            if(tmp >= 1)
+
+            if (tmp >= spectrumvalue)
             {
-                gameObject.transform.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+             
+                //gameObject.transform.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+                
             }
-            Debug.Log(tmp);
+             
+            //Debug.Log(tmp);
         }
+      
     }
+
+
+
 }

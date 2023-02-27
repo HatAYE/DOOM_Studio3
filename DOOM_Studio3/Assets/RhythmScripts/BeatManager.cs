@@ -45,7 +45,7 @@ public class BeatManager : MonoBehaviour
         // Loops untill file ends
         while (!Reader.EndOfStream)
         {
-            //Assigns data read by reader to line data
+            //Assigns data read by reader to LineData
             string LineData = Reader.ReadLine();
             //Converts LineData into int and adds to Timings List
             Timings.Add(int.Parse(LineData));

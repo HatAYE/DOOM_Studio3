@@ -9,7 +9,7 @@ public class Notes : MonoBehaviour
     public Vector3 target;
     private Vector3 postDestinationPos;
     private GameObject note; 
-    private ShootingHandler shootingHandler;
+    
 
     [SerializeField]
     bool onBeat;
@@ -17,7 +17,7 @@ public class Notes : MonoBehaviour
     private void Start()
     {
         onBeat = false;
-        shootingHandler = gameObject.GetComponent<ShootingHandler>(); 
+       
         note = this.gameObject;
         reticletarget = GameObject.FindGameObjectWithTag("Reticle");
         postDestinationPos = new Vector3(target.x, target.y + 4f, target.z);

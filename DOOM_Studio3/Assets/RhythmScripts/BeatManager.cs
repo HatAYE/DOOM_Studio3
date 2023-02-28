@@ -6,22 +6,29 @@ using UnityEngine.Events;
 
 public class BeatManager : MonoBehaviour
 {
+    public List<int> beatTimings;
     public GameObject Gun;
+    public GameObject noteParentOnCanvas;
+    public Vector3 noteInitialSpawn;
+    public GameObject NotePrefab;
+    #region audio stuffs
     [SerializeField] private float bpm;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Intervals[] _intervals;
+    [SerializeField] float sampleRateOfMidi = 44100;
+    [SerializeField]
+    int beatsElapsedCounter = 0;
+    float AudioTime;
+    #endregion 
 
+    public float AnimationOffset;
+    public int beatCounter;
 
     private void Start()
     {
+        AnimationOffset = 1000f;
+        Debug.Log(Application.dataPath);
         Gun = GameObject.FindGameObjectWithTag("Gun");
-
-        List<int> BeatTimings = ReadBeatTimingsTXT("D:/Uni/Projects/DOOM_Studio3/DOOM_Studio3/Assets/RhythmUI/Beatmap.txt");
-
-        foreach (int Timing in BeatTimings)
-        {
-            Debug.Log(Timing);
-        }
     }
 
     private void Update()
@@ -31,6 +38,19 @@ public class BeatManager : MonoBehaviour
             float sampledTime = (audioSource.timeSamples / (audioSource.clip.frequency * interval.GetIntervalLength(bpm))); //gets time in intervals //gets time elapsed in intervals
             interval.NewIntervalCheck(sampledTime); //sends over the number
         }
+
+        beatTimings = ReadBeatTimingsTXT(Application.dataPath + "/RhythmUI/Beatmap.txt");
+
+        checkAudioTime(audioSource);
+
+        if (beatTimings[beatCounter] >= checkAudioTime(audioSource) - AnimationOffset)
+        {
+            GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
+            //currentNote.GetComponent<Animator>().StartPlayback();
+            beatCounter++;
+        }
+        
+        
 
     }
 
@@ -55,5 +75,24 @@ public class BeatManager : MonoBehaviour
         // Returns timings
         return Timings;
     }
+
+
+    float checkAudioTime(AudioSource audioSourceInput)
+    {
+
+        AudioTime = (audioSourceInput.timeSamples / sampleRateOfMidi); //PCM over the sample rate of the midi file
+        AudioTime = AudioTime * 1000; //converting to ms
+        Debug.Log(AudioTime);
+        return AudioTime;
+
+    }
+
+    
+   
+
+
+
+
+
 
 }

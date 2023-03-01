@@ -40,9 +40,7 @@ public class BeatManager : MonoBehaviour
 
         beatTimings = ReadBeatTimingsTXT(Application.dataPath + "/RhythmUI/Beatmap.txt", 128, 140);
 
-        checkAudioTime(audioSource);
-
-        if ((beatTimings[beatCounter] < checkAudioTime(audioSource) + AnimationOffset))
+        if ((beatTimings[beatCounter] < (audioSource.time * 1000) + AnimationOffset))
         {
             if ((beatCounter % 2) == 1)
             {
@@ -70,11 +68,9 @@ public class BeatManager : MonoBehaviour
         // Loops untill file ends
         while (!Reader.EndOfStream)
         {
-            //Assigns data read by reader to LineData
+            // Assigns data read by reader to LineData
             string LineData = Reader.ReadLine();
-
-
-            //Converts time in ticks to time in ms and adds to Timings List
+            // Converts time in ticks to time in ms and adds to Timings List
             Timings.Add(float.Parse(LineData) * msPerTick);
         }
         // Stops Reader
@@ -91,7 +87,6 @@ public class BeatManager : MonoBehaviour
         AudioTime = AudioTime * 1000; //converting to ms
         //Debug.Log(AudioTime);
         return AudioTime;
-        Debug.Log(AudioTime);
 
     }
 

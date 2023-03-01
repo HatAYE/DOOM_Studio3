@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &71854717
 AudioSource:
   m_ObjectHideFlags: 0
@@ -756,7 +756,7 @@ MonoBehaviour:
   _intervals: []
   sampleRateOfMidi: 44100
   beatsElapsedCounter: 0
-  AnimationOffset: 1000
+  AnimationOffset: 500
   beatCounter: 0
 --- !u!4 &1957484187
 Transform:

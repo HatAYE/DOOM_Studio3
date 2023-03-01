@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class BeatManager : MonoBehaviour
 {
-    public List<int> beatTimings;
+    public List<float> beatTimings;
     public GameObject Gun;
     public GameObject noteParentOnCanvas;
     public Vector3 noteInitialSpawn;
@@ -26,7 +26,6 @@ public class BeatManager : MonoBehaviour
 
     private void Start()
     {
-        AnimationOffset = 1000f;
         Debug.Log(Application.dataPath);
         Gun = GameObject.FindGameObjectWithTag("Gun");
     }
@@ -39,36 +38,44 @@ public class BeatManager : MonoBehaviour
             interval.NewIntervalCheck(sampledTime); //sends over the number
         }
 
-        beatTimings = ReadBeatTimingsTXT(Application.dataPath + "/RhythmUI/Beatmap.txt");
+        beatTimings = ReadBeatTimingsTXT(Application.dataPath + "/RhythmUI/Beatmap.txt", 128, 140);
 
         checkAudioTime(audioSource);
 
-        if (beatTimings[beatCounter] < checkAudioTime(audioSource) + AnimationOffset)
+        if ((beatTimings[beatCounter] < checkAudioTime(audioSource) + AnimationOffset))
         {
-            GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
-            //currentNote.GetComponent<Animator>().StartPlayback();
+            if ((beatCounter % 2) == 1)
+            {
+                GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
+                //currentNote.GetComponent<Animator>().StartPlayback();
+                //Debug.Log(beatTimings[beatCounter]);
+
+            }
             beatCounter++;
         }
-        
-        
+
+
 
     }
 
-    // Function reads given .txt file line by line, converts strings to ints and returns a list of ints.
-    private List<int> ReadBeatTimingsTXT(string FilePath)
+    // Function reads given .txt file line by line, converts strings to floats and returns a list of float.
+    private List<float> ReadBeatTimingsTXT(string FilePath,int PPQ, int BPM)
     {
         // Reader that reads .txt file
         StreamReader Reader = new StreamReader(FilePath);
         // List that holds all the data read by the reader
-        List<int> Timings = new List<int>();
-
+        List<float> Timings = new List<float>();
+        // Miliseconds per tick
+        float msPerTick = 60000 / (BPM * PPQ);
         // Loops untill file ends
         while (!Reader.EndOfStream)
         {
             //Assigns data read by reader to LineData
             string LineData = Reader.ReadLine();
-            //Converts LineData into int and adds to Timings List
-            Timings.Add(int.Parse(LineData));
+
+
+            //Converts time in ticks to time in ms and adds to Timings List
+            Timings.Add(float.Parse(LineData) * msPerTick);
         }
         // Stops Reader
         Reader.Close();
@@ -81,14 +88,15 @@ public class BeatManager : MonoBehaviour
     {
 
         AudioTime = (audioSourceInput.timeSamples / sampleRateOfMidi); //PCM over the sample rate of the midi file
-        AudioTime = AudioTime * 100; //converting to ms
-        Debug.Log(AudioTime);
+        AudioTime = AudioTime * 1000; //converting to ms
+        //Debug.Log(AudioTime);
         return AudioTime;
+        Debug.Log(AudioTime);
 
     }
 
-    
-   
+
+
 
 
 

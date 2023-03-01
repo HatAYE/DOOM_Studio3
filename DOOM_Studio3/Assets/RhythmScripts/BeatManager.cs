@@ -43,7 +43,7 @@ public class BeatManager : MonoBehaviour
 
         checkAudioTime(audioSource);
 
-        if (beatTimings[beatCounter] >= checkAudioTime(audioSource) - AnimationOffset)
+        if (beatTimings[beatCounter] < checkAudioTime(audioSource) + AnimationOffset)
         {
             GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
             //currentNote.GetComponent<Animator>().StartPlayback();
@@ -81,7 +81,7 @@ public class BeatManager : MonoBehaviour
     {
 
         AudioTime = (audioSourceInput.timeSamples / sampleRateOfMidi); //PCM over the sample rate of the midi file
-        AudioTime = AudioTime * 1000; //converting to ms
+        AudioTime = AudioTime * 100; //converting to ms
         Debug.Log(AudioTime);
         return AudioTime;
 

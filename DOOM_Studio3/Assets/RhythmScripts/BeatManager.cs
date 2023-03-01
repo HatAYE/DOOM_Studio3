@@ -40,13 +40,13 @@ public class BeatManager : MonoBehaviour
 
         beatTimings = ReadBeatTimingsTXT(Application.dataPath + "/RhythmUI/Beatmap.txt", 128, 140);
 
-        if ((beatTimings[beatCounter] < (audioSource.time * 1000) + AnimationOffset))
+        if ((beatTimings[beatCounter] < checkAudioTime(audioSource) + AnimationOffset))
         {
             if ((beatCounter % 2) == 1)
             {
-                GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
+                //GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
                 //currentNote.GetComponent<Animator>().StartPlayback();
-                //Debug.Log(beatTimings[beatCounter]);
+                Debug.Log(beatTimings[beatCounter]);
 
             }
             beatCounter++;

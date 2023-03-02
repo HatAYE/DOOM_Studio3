@@ -18,7 +18,7 @@ public class BeatManager : MonoBehaviour
     [SerializeField] float sampleRateOfMidi = 44100;
     [SerializeField]
     int beatsElapsedCounter = 0;
-    float AudioTime;
+    public float AudioTime;
     #endregion 
 
     public float AnimationOffset;
@@ -44,7 +44,7 @@ public class BeatManager : MonoBehaviour
         {
             if ((beatCounter % 2) == 1)
             {
-                //GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
+                GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
                 //currentNote.GetComponent<Animator>().StartPlayback();
                 Debug.Log(beatTimings[beatCounter]);
 

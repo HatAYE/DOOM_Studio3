@@ -9,11 +9,23 @@ public class SpectrumData : MonoBehaviour
     public AudioListener beatMap;
     public bool enableAllActions = false;
 
+    private ParticleSystem ps;
+
+    public float particlereactionspeed;
+
+    public Transform startsize;
+    public Transform endsize;
+     public float returnspeed;
+    
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+       
+        ps = GetComponent<ParticleSystem>();
+        
     }
 
     // Update is called once per frame
@@ -30,16 +42,23 @@ public class SpectrumData : MonoBehaviour
 
             if (tmp >= spectrumvalue)
             {
-             
-                //gameObject.transform.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+
+                gameObject.transform.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360) * 2f);
+                
+                
+                
                 
             }
              
             //Debug.Log(tmp);
         }
-      
+
+        gameObject.transform.Rotate(Time.deltaTime * 5, 0, 0);
+
+
     }
 
 
+    
 
 }

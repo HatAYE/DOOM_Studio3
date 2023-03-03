@@ -44,9 +44,9 @@ public class BeatManager : MonoBehaviour
         {
             if ((beatCounter % 2) == 1)
             {
-                GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
+                //GameObject currentNote = Instantiate(NotePrefab, noteInitialSpawn, Quaternion.identity, noteParentOnCanvas.transform); //instantiates new prefab and assigns it as current note, spawns it at spawn point + default rotation
                 //currentNote.GetComponent<Animator>().StartPlayback();
-                Debug.Log(beatTimings[beatCounter]);
+                //Debug.Log(beatTimings[beatCounter]);
 
             }
             beatCounter++;

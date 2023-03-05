@@ -9,12 +9,16 @@ public class Movement : MonoBehaviour
 
     public float speed;
     public float SprintSpeed;
-    public float MoveSpeed = 3;
+    public float MoveSpeed;
 
     public float groundDistance = 0.4f;
     public bool isGrounded;
     public Transform groundCheck;
     public LayerMask groundMask;
+
+    public float MaxDashDistance;
+    public float DashSpeed;
+    public bool isDashing;
 
     public float gravity;
     public float jumpdist;
@@ -26,6 +30,7 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
+        MoveSpeed = speed;
         controller = gameObject.GetComponent<CharacterController>();
     }
 
@@ -77,6 +82,22 @@ public class Movement : MonoBehaviour
         }
         */
 
+        //Dash
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.transform.position, transform.forward, out hit, MaxDashDistance) && Input.GetKey(KeyCode.Space))
+        {
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                if (Vector3.Distance(gameObject.transform.position, hit.collider.gameObject.transform.position) > 0.00001f)
+                {
+                    isDashing = true;
+                    Vector3 DashDirection = (hit.collider.gameObject.transform.position - gameObject.transform.position).normalized;
+                    gameObject.transform.position += DashDirection * DashSpeed * Time.deltaTime;
+                }
+            }
+        }
+
         //Sprint
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -89,15 +110,18 @@ public class Movement : MonoBehaviour
         }
 
         //Movement
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        if (!isDashing)
+        {
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
+            Vector3 move = transform.right * x + transform.forward * z;
 
-        controller.Move(move * MoveSpeed * Time.deltaTime);
+            controller.Move(move * MoveSpeed * Time.deltaTime);
 
-        velocity.y += gravity * Time.deltaTime;
+            velocity.y += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+            controller.Move(velocity * Time.deltaTime);
+        }
     }
 }

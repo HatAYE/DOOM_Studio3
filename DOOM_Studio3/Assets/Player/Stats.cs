@@ -28,11 +28,6 @@ public class PlayerStats : MonoBehaviour
     void TakeDamage()
     {
         PlayerHealth--;
-
-        if (HealthHeartsUI[PlayerHealth - 1].GetComponent<>)
-        {
-
-        }
     }
 
     void Heal()

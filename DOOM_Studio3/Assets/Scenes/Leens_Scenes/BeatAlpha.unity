@@ -331,7 +331,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 94254976}
-  - component: {fileID: 94254975}
   m_Layer: 0
   m_Name: Gm
   m_TagString: GM
@@ -339,22 +338,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &94254975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94254974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f496504bb3aee6f4ebcfb9a7389c937e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  badHitCount: 0
-  GoodHitCount: 0
-  perfectHitCount: 0
-  missHitCount: 0
 --- !u!4 &94254976
 Transform:
   m_ObjectHideFlags: 0

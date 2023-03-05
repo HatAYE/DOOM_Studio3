@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.Rendering;
 public class Movement : MonoBehaviour
 {
     public CharacterController controller;
+    Rigidbody PlayerRB;
+    public GameObject DashCam;
 
     public float speed;
     public float SprintSpeed;
@@ -32,6 +35,7 @@ public class Movement : MonoBehaviour
     {
         MoveSpeed = speed;
         controller = gameObject.GetComponent<CharacterController>();
+        PlayerRB = gameObject.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -85,17 +89,26 @@ public class Movement : MonoBehaviour
         //Dash
         RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.transform.position, transform.forward, out hit, MaxDashDistance) && Input.GetKey(KeyCode.Space))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, MaxDashDistance) && Input.GetKey(KeyCode.Space))
         {
             if (hit.collider.CompareTag("Enemy"))
             {
                 if (Vector3.Distance(gameObject.transform.position, hit.collider.gameObject.transform.position) > 0.00001f)
                 {
+                    Debug.DrawLine(Camera.main.transform.position, hit.point, Color.green);
+                    DashCam.GetComponent<CinemachineVirtualCamera>().LookAt = hit.collider.gameObject.transform;
                     isDashing = true;
+                    gravity = 0f;
                     Vector3 DashDirection = (hit.collider.gameObject.transform.position - gameObject.transform.position).normalized;
-                    gameObject.transform.position += DashDirection * DashSpeed * Time.deltaTime;
+                    PlayerRB.transform.position += DashDirection * DashSpeed * Time.deltaTime;
                 }
             }
+        }
+        else
+        {
+            DashCam.GetComponent<CinemachineVirtualCamera>().LookAt = null;
+            isDashing = false;
+            gravity = 9;
         }
 
         //Sprint
@@ -115,7 +128,7 @@ public class Movement : MonoBehaviour
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
-            Vector3 move = transform.right * x + transform.forward * z;
+            Vector3 move = Camera.main.transform.right * x + Camera.main.transform.forward * z;
 
             controller.Move(move * MoveSpeed * Time.deltaTime);
 

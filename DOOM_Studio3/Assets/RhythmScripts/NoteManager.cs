@@ -8,7 +8,7 @@ public class NoteManager : MonoBehaviour
 
     public Vector2 ReticlePosition;
 
-    public bool allActionsEnabled;
+    public bool onBeat;
     public AudioSource sfxtest;
 
 
@@ -16,8 +16,8 @@ public class NoteManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (allActionsEnabled == true && Input.GetMouseButtonDown(0))
+        
+        if (onBeat == true && Input.GetMouseButtonDown(0))
         {
             Destroy(this.gameObject);
         }
@@ -26,14 +26,16 @@ public class NoteManager : MonoBehaviour
   
     public void canclick()
     {
-        allActionsEnabled = true;
+        onBeat = true;
+        GameScoreManager.allActionsEnabled = true;
         Debug.Log("true");
        
     }
 
     public void cantclick()
     {
-        allActionsEnabled = false;
+        onBeat = false;
+        GameScoreManager.allActionsEnabled = false;
         Debug.Log("false");
 
     }

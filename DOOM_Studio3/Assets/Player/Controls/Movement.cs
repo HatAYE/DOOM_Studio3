@@ -33,6 +33,8 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         MoveSpeed = speed;
         controller = gameObject.GetComponent<CharacterController>();
         PlayerRB = gameObject.GetComponent<Rigidbody>();
@@ -93,10 +95,10 @@ public class Movement : MonoBehaviour
         {
             if (hit.collider.CompareTag("Enemy"))
             {
-                if (Vector3.Distance(gameObject.transform.position, hit.collider.gameObject.transform.position) > 0.00001f)
+                if (Vector3.Distance(gameObject.transform.position, hit.collider.gameObject.transform.position) > 0.00001f && GameScoreManager.allActionsEnabled == true)
                 {
                     Debug.DrawLine(Camera.main.transform.position, hit.point, Color.green);
-                    DashCam.GetComponent<CinemachineVirtualCamera>().LookAt = hit.collider.gameObject.transform;
+                    //DashCam.GetComponent<CinemachineVirtualCamera>().LookAt = hit.collider.gameObject.transform;
                     isDashing = true;
                     gravity = 0f;
                     Vector3 DashDirection = (hit.collider.gameObject.transform.position - gameObject.transform.position).normalized;
@@ -106,9 +108,9 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            DashCam.GetComponent<CinemachineVirtualCamera>().LookAt = null;
+            //DashCam.GetComponent<CinemachineVirtualCamera>().LookAt = null;
             isDashing = false;
-            gravity = 9;
+            gravity = -9;
         }
 
         //Sprint

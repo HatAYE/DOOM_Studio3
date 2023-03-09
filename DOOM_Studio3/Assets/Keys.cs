@@ -17,7 +17,7 @@ public class Keys : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
+    { if (GameScoreManager.)
         if (other.gameObject.CompareTag("Key"))
         {
             Destroy(other.gameObject);

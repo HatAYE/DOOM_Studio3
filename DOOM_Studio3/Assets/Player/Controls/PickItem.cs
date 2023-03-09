@@ -26,7 +26,19 @@ public class PickItem : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Destroy(ItemInView);
+
+                if (ItemInView.CompareTag("Key"))
+                {
+                    Destroy(ItemInView);
+                    GameScoreManager.keysInInventory += 1;
+                }
+
+                if (ItemInView.CompareTag("Door") && GameScoreManager.keysInInventory >= 1)
+                {
+                    ItemInView.transform.position += new Vector3(0, 2.5f, 0);
+                    GameScoreManager.keysInInventory -= 1;
+
+                }
             }
         }
     }
@@ -53,4 +65,5 @@ public class PickItem : MonoBehaviour
             }
         }
     }
+
 }

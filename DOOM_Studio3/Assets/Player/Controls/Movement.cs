@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.Rendering;
 public class Movement : MonoBehaviour
 {
     public CharacterController controller;
+    Rigidbody PlayerRB;
+    public GameObject DashCam;
 
     public float speed;
     public float SprintSpeed;
@@ -16,9 +19,16 @@ public class Movement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundMask;
 
+    #region Dashing
     public float MaxDashDistance;
     public float DashSpeed;
     public bool isDashing;
+    Transform DashEnemy;
+    [Range(0, 360)]
+    public float DashFOVAngle;
+    LayerMask WallMask;
+    LayerMask EnemyMask;
+    #endregion
 
     public float gravity;
     public float jumpdist;
@@ -30,8 +40,14 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
+        WallMask = LayerMask.NameToLayer("Wall");
+        EnemyMask = LayerMask.NameToLayer("Enemy");
+
+        Cursor.lockState = CursorLockMode.Locked;
+
         MoveSpeed = speed;
         controller = gameObject.GetComponent<CharacterController>();
+        PlayerRB = gameObject.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -83,20 +99,35 @@ public class Movement : MonoBehaviour
         */
 
         //Dash
-        RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.transform.position, transform.forward, out hit, MaxDashDistance) && Input.GetKey(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space))
         {
-            if (hit.collider.CompareTag("Enemy"))
-            {
-                if (Vector3.Distance(gameObject.transform.position, hit.collider.gameObject.transform.position) > 0.00001f)
-                {
-                    isDashing = true;
-                    Vector3 DashDirection = (hit.collider.gameObject.transform.position - gameObject.transform.position).normalized;
-                    gameObject.transform.position += DashDirection * DashSpeed * Time.deltaTime;
-                }
-            }
+            DashTo();
         }
+
+        //RaycastHit hit;
+
+        //if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, MaxDashDistance) && Input.GetKey(KeyCode.Space))
+        //{
+        //    if (hit.collider.CompareTag("Enemy"))
+        //    {
+        //        if (Vector3.Distance(gameObject.transform.position, hit.collider.gameObject.transform.position) > 0.00001f && GameScoreManager.allActionsEnabled == true)
+        //        {
+        //            Debug.DrawLine(Camera.main.transform.position, hit.point, Color.green);
+        //            //DashCam.GetComponent<CinemachineVirtualCamera>().LookAt = hit.collider.gameObject.transform;
+        //            isDashing = true;
+        //            gravity = 0f;
+        //            Vector3 DashDirection = (hit.collider.gameObject.transform.position - gameObject.transform.position).normalized;
+        //            PlayerRB.transform.position += DashDirection * DashSpeed * Time.deltaTime;
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    //DashCam.GetComponent<CinemachineVirtualCamera>().LookAt = null;
+        //    isDashing = false;
+        //    gravity = -5;
+        //}
 
         //Sprint
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -110,18 +141,47 @@ public class Movement : MonoBehaviour
         }
 
         //Movement
-        if (!isDashing)
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 move = Camera.main.transform.right * x + Camera.main.transform.forward * z;
+
+        controller.Move(move * MoveSpeed * Time.deltaTime);
+
+        velocity.y += gravity * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    void DashTo()
+    {
+        //Dash
+        isDashing = true;
+        gravity = 0f;
+        Vector3 DashDirection = (FieldOfViewCheck().position - gameObject.transform.position).normalized;
+        PlayerRB.transform.position += DashDirection * DashSpeed * Time.deltaTime;
+    }
+
+    Transform FieldOfViewCheck()
+    {
+        Collider[] CollidersInRange = Physics.OverlapSphere(transform.position, MaxDashDistance, EnemyMask);
+
+        if (CollidersInRange.Length != 0)
         {
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
+            DashEnemy = CollidersInRange[0].transform;
 
-            Vector3 move = transform.right * x + transform.forward * z;
+            Vector3 directionToEnemy = (DashEnemy.position - transform.position).normalized;
 
-            controller.Move(move * MoveSpeed * Time.deltaTime);
+            if (Vector3.Angle(transform.forward, directionToEnemy) < DashFOVAngle / 2)
+            {
+                float distanceToItem = Vector3.Distance(transform.position, DashEnemy.position);
 
-            velocity.y += gravity * Time.deltaTime;
-
-            controller.Move(velocity * Time.deltaTime);
+                if (!Physics.Raycast(transform.position, directionToEnemy, distanceToItem, WallMask))
+                {
+                    return DashEnemy;
+                }
+            }
         }
+        return null;
     }
 }

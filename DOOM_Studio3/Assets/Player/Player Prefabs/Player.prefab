@@ -45,11 +45,10 @@ GameObject:
   - component: {fileID: 7023340726244454544}
   - component: {fileID: 7023340726244454545}
   - component: {fileID: 7023340726244454542}
-  - component: {fileID: 7023340726244454543}
   - component: {fileID: 7023340726244454540}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,7 +146,7 @@ MonoBehaviour:
   DashCam: {fileID: 0}
   speed: 3
   SprintSpeed: 6
-  MoveSpeed: 0
+  MoveSpeed: 10
   groundDistance: 0.4
   isGrounded: 0
   groundCheck: {fileID: 0}
@@ -155,9 +154,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   MaxDashDistance: 1000
-  DashSpeed: 10
+  DashSpeed: 700
   isDashing: 0
-  gravity: -9
+  DashFOVAngle: 180
+  gravity: -5
   jumpdist: 0
   HUD: {fileID: 0}
   PauseMenuOBJ: {fileID: 0}
@@ -202,27 +202,6 @@ MonoBehaviour:
   directionToItem: {x: 0, y: 0, z: 0}
   ItemInView: {fileID: 0}
   ItemTransform: {fileID: 0}
---- !u!114 &7023340726244454543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7023340726244454541}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a115813ba1ec4f949b3b095d4e4d0844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  SprintSpeed: 6
-  MoveSpeed: 0
-  MaxDashDistance: 100
-  DashSpeed: 10
-  isDashing: 0
-  mouseSensitivity: 100
-  PlayerCam: {fileID: 0}
-  DashCam: {fileID: 0}
 --- !u!54 &7023340726244454540
 Rigidbody:
   m_ObjectHideFlags: 0

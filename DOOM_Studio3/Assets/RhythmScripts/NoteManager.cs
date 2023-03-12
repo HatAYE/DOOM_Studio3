@@ -31,12 +31,14 @@ public class NoteManager : MonoBehaviour
         {
             Debug.Log("bad hit!!!");
             GameScoreManager.badHitCount++;
+            GameScoreManager.comboCount++;
             Destroy(this.gameObject);
             //Debug.Log(GameScoreManager.badHitCount);
         }
         if (Input.GetMouseButtonDown(0) && goodhit == true)
         {
             GameScoreManager.GoodHitCount++;
+            GameScoreManager.comboCount++;
             Debug.Log("good hit!!!");
             Destroy(this.gameObject);
 
@@ -45,10 +47,9 @@ public class NoteManager : MonoBehaviour
         {
             sfxtest.Play();
             GameScoreManager.perfectHitCount++;
+            GameScoreManager.comboCount++;
             Debug.Log("perfect hit!!!");
             Destroy(this.gameObject);
-
-
         }
 
     }
@@ -59,7 +60,6 @@ public class NoteManager : MonoBehaviour
         badhit = true;
         GameScoreManager.allActionsEnabled = true;
         //Debug.Log("true");
-       
     }
 
     public void cantclick()
@@ -95,7 +95,6 @@ public class NoteManager : MonoBehaviour
 
     public void miss()
     {
-        
         GameScoreManager.missHitCount++;
         Destroy(this.gameObject);
     }

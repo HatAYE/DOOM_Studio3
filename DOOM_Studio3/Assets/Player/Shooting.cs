@@ -11,6 +11,8 @@ public class Shooting : MonoBehaviour
     private Intervals intervals;
     public float shootingGracePeriod;
 
+    public Animator gunanimator;
+
     private void Start()
     {
       
@@ -24,9 +26,14 @@ public class Shooting : MonoBehaviour
             Debug.DrawLine(transform.position, hit.point, Color.green);
             if (hit.collider.CompareTag("Enemy"))
             {
+    
                 Destroy(hit.collider.gameObject);
+                gunanimator.SetTrigger("shooting");
 
             }
+            
+
         }
+       
     }
 }

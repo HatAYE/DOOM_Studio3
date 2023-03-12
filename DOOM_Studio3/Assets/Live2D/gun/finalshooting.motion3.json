@@ -1,0 +1,212 @@
+{
+	"Version": 3,
+	"Meta": {
+		"Duration": 0.7,
+		"Fps": 30.0,
+		"Loop": true,
+		"AreBeziersRestricted": true,
+		"CurveCount": 11,
+		"TotalSegmentCount": 20,
+		"TotalPointCount": 55,
+		"UserDataCount": 0,
+		"TotalUserDataSize": 0
+	},
+	"Curves": [
+		{
+			"Target": "Model",
+			"Id": "Opacity",
+			"Segments": [
+				0,
+				1,
+				0,
+				0.7,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamAngleX",
+			"Segments": [
+				0,
+				4,
+				0,
+				0.3,
+				4,
+				1,
+				0.433,
+				4,
+				0.567,
+				0,
+				0.7,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamAngleY",
+			"Segments": [
+				0,
+				-1,
+				0,
+				0.7,
+				-1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamAngleZ",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.7,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "shooting",
+			"Segments": [
+				0,
+				-10,
+				1,
+				0.089,
+				-10,
+				0.178,
+				10,
+				0.267,
+				10,
+				1,
+				0.344,
+				10,
+				0.422,
+				-10,
+				0.5,
+				-10,
+				1,
+				0.567,
+				-10,
+				0.633,
+				0,
+				0.7,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "flash",
+			"Segments": [
+				0,
+				-1,
+				0,
+				0.7,
+				-1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param3",
+			"Segments": [
+				0,
+				5,
+				1,
+				0.189,
+				5,
+				0.378,
+				3.175,
+				0.567,
+				-1.8,
+				1,
+				0.611,
+				-2.971,
+				0.656,
+				-5,
+				0.7,
+				-5
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param",
+			"Segments": [
+				0,
+				-4,
+				1,
+				0.022,
+				-4,
+				0.044,
+				-8,
+				0.067,
+				-8,
+				1,
+				0.278,
+				-8,
+				0.489,
+				0,
+				0.7,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param2",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.144,
+				0,
+				0.289,
+				10,
+				0.433,
+				10,
+				1,
+				0.522,
+				10,
+				0.611,
+				0,
+				0.7,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBreath",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.067,
+				0,
+				0.133,
+				0.5,
+				0.2,
+				0.5,
+				1,
+				0.3,
+				0.5,
+				0.4,
+				0,
+				0.5,
+				0,
+				0,
+				0.7,
+				0
+			]
+		},
+		{
+			"Target": "PartOpacity",
+			"Id": "Part2",
+			"Segments": [
+				0,
+				1,
+				2,
+				0.33,
+				0,
+				2,
+				0.7,
+				0
+			]
+		}
+	]
+}

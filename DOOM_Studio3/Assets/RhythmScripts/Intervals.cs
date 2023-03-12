@@ -26,7 +26,7 @@ public class Intervals
         {
             lastInterval = Mathf.FloorToInt(interval); //rounding to whole number to check if weve hit a ebat
             beatTrigger.Invoke();
-            Debug.Log("beat trigger invoked");
+            //Debug.Log("beat trigger invoked");
 
         }
         

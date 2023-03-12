@@ -107,15 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c92a0b1d75422540aa6ee040d34cf3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumDistance: 0
-  goodDistance: 0
-  perfectDistance: 0
-  maximumDistance: 0
-  missDistance: 0
-  testingDistance: 100
-  distance: 0
   ReticlePosition: {x: 0, y: 0}
-  canClick: 0
+  onBeat: 0
   sfxtest: {fileID: 6472946484788744535}
 --- !u!82 &6472946484788744535
 AudioSource:

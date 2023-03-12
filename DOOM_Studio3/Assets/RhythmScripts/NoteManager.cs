@@ -72,12 +72,14 @@ public class NoteManager : MonoBehaviour
 
     public void BadHit()
     {
+        GameScoreManager.missed = false;
         badhit = true;
        
     }
 
     public void GoodHit()
     {
+        GameScoreManager.missed = false;
         badhit = false;
         goodhit = true;
 
@@ -87,6 +89,7 @@ public class NoteManager : MonoBehaviour
 
     public void perfectHit()
     {
+        GameScoreManager.missed = false;
         goodhit = false;
         perfecthit = true;
      
@@ -95,6 +98,7 @@ public class NoteManager : MonoBehaviour
 
     public void miss()
     {
+        GameScoreManager.missed = true;
         GameScoreManager.missHitCount++;
         Destroy(this.gameObject);
     }

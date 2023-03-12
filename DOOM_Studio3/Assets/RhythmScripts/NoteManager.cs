@@ -11,24 +11,54 @@ public class NoteManager : MonoBehaviour
     public bool onBeat;
     public AudioSource sfxtest;
 
+    public bool badhit;
+    public bool goodhit;
+    public bool perfecthit;
+    public bool misshit;
+
 
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (onBeat == true && Input.GetMouseButtonDown(0))
+
+        //if (onBeat == true && Input.GetMouseButtonDown(0))
+        //{
+        //  Destroy(this.gameObject);
+        //}
+
+        if (Input.GetMouseButtonDown(0) && badhit == true)
         {
+            Debug.Log("bad hit!!!");
+            GameScoreManager.badHitCount++;
             Destroy(this.gameObject);
+            //Debug.Log(GameScoreManager.badHitCount);
         }
-      
+        if (Input.GetMouseButtonDown(0) && goodhit == true)
+        {
+            GameScoreManager.GoodHitCount++;
+            Debug.Log("good hit!!!");
+            Destroy(this.gameObject);
+
+        }
+        if (Input.GetMouseButtonDown(0) && perfecthit == true)
+        {
+            sfxtest.Play();
+            GameScoreManager.perfectHitCount++;
+            Debug.Log("perfect hit!!!");
+            Destroy(this.gameObject);
+
+
+        }
+
     }
-  
+
     public void canclick()
     {
         onBeat = true;
+        badhit = true;
         GameScoreManager.allActionsEnabled = true;
-        Debug.Log("true");
+        //Debug.Log("true");
        
     }
 
@@ -36,33 +66,38 @@ public class NoteManager : MonoBehaviour
     {
         onBeat = false;
         GameScoreManager.allActionsEnabled = false;
-        Debug.Log("false");
+        //Debug.Log("false");
 
     }
 
     public void BadHit()
     {
-        GameScoreManager.badHitCount++;
+        badhit = true;
+       
     }
 
     public void GoodHit()
     {
-        GameScoreManager.GoodHitCount++;
+        badhit = false;
+        goodhit = true;
+
+      
     }
 
 
     public void perfectHit()
     {
-        GameScoreManager.perfectHitCount++;
-        sfxtest.Play();
+        goodhit = false;
+        perfecthit = true;
+     
+           
     }
 
     public void miss()
     {
-
-        GameScoreManager.missHitCount++;
-        Debug.Log(GameScoreManager.missHitCount);
         
+        GameScoreManager.missHitCount++;
+        Destroy(this.gameObject);
     }
 
     public void destroyNote()

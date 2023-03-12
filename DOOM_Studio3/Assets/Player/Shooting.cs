@@ -28,6 +28,7 @@ public class Shooting : MonoBehaviour
             {
     
                 Destroy(hit.collider.gameObject);
+                gunanimator.SetTrigger("shooting");
 
             }
             

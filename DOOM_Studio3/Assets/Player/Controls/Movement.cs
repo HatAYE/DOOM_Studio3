@@ -100,7 +100,7 @@ public class Movement : MonoBehaviour
 
         //Dash
 
-        if(Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             DashTo();
         }
@@ -156,10 +156,13 @@ public class Movement : MonoBehaviour
     void DashTo()
     {
         //Dash
-        isDashing = true;
-        gravity = 0f;
-        Vector3 DashDirection = (FieldOfViewCheck().position - gameObject.transform.position).normalized;
-        PlayerRB.transform.position += DashDirection * DashSpeed * Time.deltaTime;
+        if (FieldOfViewCheck() != null)
+        {
+            isDashing = true;
+            gravity = 0f;
+            Vector3 DashDirection = (FieldOfViewCheck().position - gameObject.transform.position).normalized;
+            PlayerRB.transform.position += DashDirection * DashSpeed * Time.deltaTime;
+        }
     }
 
     Transform FieldOfViewCheck()
@@ -170,13 +173,13 @@ public class Movement : MonoBehaviour
         {
             DashEnemy = CollidersInRange[0].transform;
 
-            Vector3 directionToEnemy = (DashEnemy.position - transform.position).normalized;
+            Vector3 directionToEnemy = (DashEnemy.position - Camera.main.transform.position);
 
-            if (Vector3.Angle(transform.forward, directionToEnemy) < DashFOVAngle / 2)
+            if (Vector3.Angle(directionToEnemy.normalized, Camera.main.transform.forward) < DashFOVAngle / 2)
             {
-                float distanceToItem = Vector3.Distance(transform.position, DashEnemy.position);
+                float distanceToItem = Vector3.Distance(Camera.main.transform.position, DashEnemy.position);
 
-                if (!Physics.Raycast(transform.position, directionToEnemy, distanceToItem, WallMask))
+                if (!Physics.Raycast(Camera.main.transform.position, directionToEnemy, distanceToItem, WallMask))
                 {
                     return DashEnemy;
                 }

@@ -17,9 +17,11 @@ public class PickItem : MonoBehaviour
     public GameObject ItemInView;
     // Transform component of item that can be picked up
     public Transform ItemTransform;
+    public int keysInInventory;
 
     private void Update()
     {
+        keysInInventory = GameScoreManager.keysInInventory;
         FieldOfViewCheck();
 
         if (ItemInView != null)

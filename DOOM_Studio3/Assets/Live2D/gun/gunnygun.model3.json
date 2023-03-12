@@ -1,0 +1,23 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "gunnygun.moc3",
+		"Textures": [
+			"gunnygun.4096/texture_00.png"
+		],
+		"Physics": "gunnygun.physics3.json",
+		"DisplayInfo": "gunnygun.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		}
+	]
+}

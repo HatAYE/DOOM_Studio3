@@ -26,7 +26,7 @@ public class BeatManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(Application.dataPath);
+       // Debug.Log(Application.dataPath);
         Gun = GameObject.FindGameObjectWithTag("Gun");
     }
 

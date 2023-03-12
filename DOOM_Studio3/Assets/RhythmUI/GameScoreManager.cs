@@ -10,5 +10,8 @@ public static class GameScoreManager
     public static int perfectHitCount;
     public static int missHitCount;
     public static int keysInInventory;
+    public static int comboCount;
+    public static bool missed;
+   
 
 }
